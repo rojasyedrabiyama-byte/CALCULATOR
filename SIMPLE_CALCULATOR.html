@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="calcApp">
+<head>
+  <meta charset="UTF-8">
+  <title> Calculator</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="CalcController">
+  <div class="calculator">
+    <h3> <center>CALCULATOR</center></h3>
+    <input type="text" ng-model="display" class="display" readonly />
+    <div class="keys">
+      <button ng-click="clear()">C</button>
+      <button ng-click="del()">DEL</button>
+      <button ng-click="append('/')">÷</button>
+      <button ng-click="append('*')">×</button>
+
+      <button ng-click="append('7')">7</button>
+      <button ng-click="append('8')">8</button>
+      <button ng-click="append('9')">9</button>
+      <button ng-click="append('-')">−</button>
+
+      <button ng-click="append('4')">4</button>
+      <button ng-click="append('5')">5</button>
+      <button ng-click="append('6')">6</button>
+      <button ng-click="append('+')">+</button>
+
+      <button ng-click="append('1')">1</button>
+      <button ng-click="append('2')">2</button>
+      <button ng-click="append('3')">3</button>
+      <button class="equals" ng-click="calculate()">=</button>
+
+      <button class="zero" ng-click="append('0')">0</button>
+      <button ng-click="append('.')">.</button>
+    </div>
+  </div>
+
+  <script>
+    angular.module('calcApp', [])
+      .controller('CalcController', ['$scope', function($scope) {
+        $scope.display = "";
+
+        $scope.append = function(val) {
+          $scope.display += val;
+        };
+
+        $scope.clear = function() {
+          $scope.display = "";
+        };
+
+        $scope.del = function() {
+          $scope.display = $scope.display.slice(0, -1);
+        };
+
+        $scope.calculate = function() {
+          try {
+            $scope.display = eval($scope.display).toString();
+          } catch (e) {
+            $scope.display = "Error";
+          }
+        };
+      }]);
+  </script>
+</body>
+</html>
